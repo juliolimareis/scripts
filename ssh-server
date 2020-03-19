@@ -1,0 +1,40 @@
+#!/bin/bash
+# <juliolimareis@gmail.com>
+# Script conectar no servidor
+
+# Requisito: Comando "vpn"
+
+# Depende: Script msg
+source "msg/msg"
+
+#SSH
+user="jreis"
+server="10.0.2.30"
+directoryPem="$HOME/.ssh/jreis.pem"
+
+userPasswd=$(cat $HOME/.pfkdgj494fdfdg)
+# recebe o numero de processo da openvpn
+process=$(pgrep openvpn)
+
+function connect(){
+    msg_con_success "Conectando no servidor (10.0.2.30)...."
+    ssh -i $directoryPem $user@$server
+}
+
+# verifica se esta vazio
+if [ -z $process ]; then
+    # Vazio ligar VPN e conectar
+    vpn
+    if [ $? != 0 ]; then
+        msg_con_error "VPN não foi possivel ativar VPN." "Comand vpn error"
+        exit 1
+    fi
+    msg_con_alert "Estabelecendo conexão com VPN ....."
+    sleep 5
+    clear
+    connect
+else 
+    connect
+fi
+
+exit 0

@@ -1,0 +1,30 @@
+#!/bin/bash
+# <juliolimareis@gmail.com>
+# Script Abrir healthmap de homologação
+# Ex: homolog app02
+
+case "$1" in
+    "app01")
+        google-chrome-stable https://app01-homolog.healthmap.com.br
+    ;;
+    "app02"|"")
+        google-chrome-stable https://app02-homolog.healthmap.com.br
+    ;;
+    "app03")
+        google-chrome-stable https://app03-homolog.healthmap.com.br
+    ;;
+    "unimedgoiania")
+        google-chrome-stable https://unimedgoiania-homolog.healthmap.com.br
+    ;;
+    "unimedse")
+        google-chrome-stable https://unimedse-homolog.healthmap.com.br
+    ;;
+    "unimedvitoria")
+        google-chrome-stable https://unimedvitoria-homolog.healthmap.com.br
+    ;;
+    *)
+        echo -e "\033[1;31mError(option no found): ==== Opção Não cadastrada ==== \033[0m"
+    ;;
+esac
+
+exit

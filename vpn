@@ -1,0 +1,80 @@
+#!/bin/bash
+####################################
+# @Author: juliolimareis@gmail.com 
+# Script para ativar open vpn      
+# em todos diretórios do path      
+#################################### 
+
+# Depende: Script msg
+source "msg/msg"
+
+########### CONFIGURAÇÃO #############
+#endereço do icone de alerta
+pathIcon="$PWD/icons"
+#aquivo de configuração vpn
+pathConfig="$HOME/healthmap/vpn/vpn.conf"
+#caminho da autenticação da vpn
+pathAuth="$HOME/.ssh/vpn_auth"
+#senha do sudo
+userPasswd=$(cat $HOME/.pfkdgj494fdfdg)
+######### FIM CONFIGURAÇÃO ############
+
+function startVPN(){
+    # tenta ligar a vpn
+    echo -e $userPasswd | sudo -S openvpn --config $pathConfig --verb 0 --auth-user-pass $pathAuth --auth-nocache --daemon
+    # Verifica se não houve erros erros 
+    if [ $? != 0 ]; then
+        msg_ui "Não foi possivel ligar VPN" "error"
+        exit 1
+    fi
+}
+
+# recebe o numero de processo da openvpn
+process=$(pgrep openvpn)
+
+case $1 in
+    ""|"start") 
+        if [ -z $process ]; then # Vazio ligar            
+            startVPN
+            msg_ui "OpenVPN Ativada" "vpn"
+        else
+            msg_ui "VPN encontra-se ligada" "correct"         
+        fi
+    ;;
+    "-k"|"-K"|"kill"|"stop"|"k"|"K") 
+        if [ -z $process ]; then # Vazio ligar
+            msg_ui "VPN encontra-se desativada" "alert"
+        else
+            echo -e $userPasswd | sudo -S kill $process
+            if [ $? != 0 ]; then # verifica erro
+                msg_ui "Não foi possivel desligar VPN" "error.png"
+                msg_con_error "Não foi possivel desativar PID  $process" "kill PID"
+                exit 1
+            fi
+            msg_ui "VPN Desativada" "shutdown"
+        fi
+    ;;
+    "-r"|"-R"|"restart") 
+        if [ -z $process ]; then
+            startVPN
+            msg_ui "OpenVPN Ativada" "vpn"
+        else # Mata o processo e reinicia a VPN
+            echo -e $userPasswd | sudo -S kill $process
+            if [ $? != 0 ]; then
+                msg_ui "Não foi possivel ligar VPN" "error"
+                msg_con_error 
+                msg_con_error "Não foi possivel desativar PID  $process" "kill PID"
+                exit 1
+            else
+                startVPN
+                msg_ui "VPN Reiniciada" "restart"
+            fi
+        fi 
+    ;;
+    *)
+        msg_con_error "Argumento inválido" "option not found"
+        exit 1
+    ;;
+esac
+
+exit 0

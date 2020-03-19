@@ -1,0 +1,124 @@
+#!/bin/bash
+#########################################################
+# @author: <juliolimareis@gmail.com>                    #
+# @description: Script Abrir healthmap de homologação   #
+# Exemples:                                             #
+#    prod unimedse                                      # 
+#########################################################
+
+# 1• UNIMED JUIZ DE FORA: https://ujf.healthmap.com.br
+
+# 2• SMARTCARE: https://smartcare.healthmap.com.br
+
+# 3• UNIMED GOIÂNIA: https://healthmap.unimedgoiania.coop.br
+
+# 4• UNIMED METRO: https://unimedmetro.healthmap.com.br
+
+# 5• MENTALMAP: https://mentalmap.healthmap.com.br
+
+# 6• HOSPITAL MATERDEI: hospitalmaterdei.healthmap.com.br
+
+# 7• SEGUROS UNIMED: segurosunimed.healthmap.com.br
+
+# 8• UNIMED RIO MAFRA: https://unimedriomafra.healthmap.com.br
+
+# 9• UNIMED CATALÃO: https://unimedcatalao.healthmap.com.br
+
+# 10• UNIMED TUBARÃO: https://unimedtubarao.healthmap.com.br
+
+# 11• FESC: https://fesc.healthmap.com.br
+
+# 12• UNIMED CARUARU: unimedcaruaru.healthmap.com.br
+
+# 13• UNIMED SUL CAPIXABA: https://unimedsulcapixaba.healthmap.com.br
+
+# 14• UNIMED CAMPO GRANDE: https://unimedcg.healthmap.com.br
+
+# 15• D’OR: http://viva.dorconsultoria.com.br
+
+# 16• INSTITUTO PAULUCCI: https://institutopaulucci.healthmap.com.br
+
+# 17• NPLUS: nplus.healthmap.com.br
+
+# 18• UNIMED ODONTO: healthmap.unimedodonto.com.br
+
+# 19• CNU: https://cnu.healthmap.com.br
+
+# 20• AUDITORIA CNU: auditoria.healthmap.com.br
+
+# 21• FISIOMAP: fisiomap.healthmap.com.br
+
+# 22• UNIMED VITORIA, CRAVV E GVIX: http://unimedvitoria.healthmap.com.br
+
+# 23• UNIMED JOINVILLE: https://unimedjoinville.healthmap.com.br
+
+# 24• MANTRIS: https://mantris.healthmap.com.br
+
+# 25• CLINICA DOC: https://clinicadoc.healthmap.com.br (Tambem funciona CEMIG)
+
+# 26• CAREPLUS: https://careplus.healthmap.com.br
+
+# 27• UNIMED CERRADO: https://unimedcerrado.healthmap.com.br
+
+# 28• UNIMED CALDAS NOVAS: https://unimedcaldas.healthmap.com.br
+
+# 29• FIO SAUDE: https://fiosaude.healthmap.com.br
+
+# 30• UPSPORTS: https://upsports.healthmap.com.br
+
+# 31• UNIMED CUIABA: https://healthmap.unimedcuiaba.coop.br
+
+# 32• CLINICA CONVIVER: clinicaconviver.healthmap.com.br
+
+# 33• PASA: https://pasa.healthmap.com.br
+
+# 34• UNIMED VALE DO SEPOTUBA: http://unimed531.healthmap.com.br
+
+# 35• CRAVV: https://pnf.healthmap.com.br
+
+# 36• UNIMED SERGIPE: https://unimedse.healthmap.com.br
+
+# 37• SOLUTION CARE: https://saude.solutioncare.com.br
+
+# 38• UNIMED EXTREMO SUL: https://aps.unimedvida.com.br
+
+# 39• IGUATEMI: saudeiguatemi.healthmap.com.br
+
+# 40• GOLD STAR: https://gold.healthmap.com.br
+
+# 41• UNIMED CAMPINAS: https://maiscuidado.healthmap.com.br
+
+# 42• PLAMHUV: https://plamhuv.healthmap.com.br
+
+# 43• UNIMED CONSELHEIRO LAFAITE: https://viverbemunimedcl.healthmap.com.br
+
+# 44• UNIMED RIO VERDE: https://unimedrv.healthmap.com.br
+
+# 45• HUMANIZA: https://humaniza.healthmap.com.br
+
+# 46• LOCKTON: https://lockton.healthmap.com.br
+
+# 47• AON: https://aon.healthmap.com.br
+
+declare -A client=(
+    ['unimedjoinville']='https://unimedjoinville.healthmap.com.br'
+    ['unimedgoiania']='https://healthmap.unimedgoiania.coop.br'
+    ['unimedvitoria']='http://unimedvitoria.healthmap.com.br'
+    ['mentalmap']='https://mentalmap.healthmap.com.br'
+    ['unimedse']='https://unimedse.healthmap.com.br'
+    ['ujf']='https://ujf.healthmap.com.br'
+) 
+
+if [ -z ${client[$1]} ];then
+    echo -e "\033[1;31mError(option 404): Opção não encontrada. \033[0m"   
+    exit
+fi
+
+if [ "$2" == "url" ]; then
+    echo -e "\033[1;36m${client[$1]}\033[0m" 
+else
+    google-chrome-stable ${client[$1]}
+fi
+
+exit
+
