@@ -1,9 +1,11 @@
 #!/bin/bash
 #########################################################
 # @author: <juliolimareis@gmail.com>                    #
-# @description: Script Abrir healthmap de homologação   #
-# Exemples:                                             #
-#    prod unimedse                                      # 
+# @description: Script Abrir healthmap em produção      #
+# @Exemples: prod unimedvitoria                         #
+# Parametros: prod unimedvitoria -m                     #
+#   -m (mnu.jsp): Abrir página do .properties           #
+#   -l (link): mostrar link da aplicação                #
 #########################################################
 
 # 1• UNIMED JUIZ DE FORA: https://ujf.healthmap.com.br
@@ -104,18 +106,32 @@ declare -A client=(
     ['unimedjoinville']='https://unimedjoinville.healthmap.com.br'
     ['unimedgoiania']='https://healthmap.unimedgoiania.coop.br'
     ['unimedvitoria']='http://unimedvitoria.healthmap.com.br'
+    ['clinicadoc']="https://clinicadoc.healthmap.com.br"
+    ['cnuais']="https://cnuais.healthmap.com.br/clogin"
     ['mentalmap']='https://mentalmap.healthmap.com.br'
     ['unimedse']='https://unimedse.healthmap.com.br'
+    ['cnu']="https://cnu.healthmap.com.br/clogin"
     ['ujf']='https://ujf.healthmap.com.br'
 ) 
 
-if [ -z ${client[$1]} ];then
+if [ -z $1 ]; then
+    for i in "${!client[@]}"; do
+        echo -e "\033[1;37m$i \033[1;31m=> \033[1;36m${client[$i]}\033[0m"
+    done
+    exit
+fi
+
+if [ -z ${client[$1]} ]; then
     echo -e "\033[1;31mError(option 404): Opção não encontrada. \033[0m"   
     exit
 fi
 
-if [ "$2" == "url" ]; then
+if [ "$2" == "-l" ]; then
     echo -e "\033[1;36m${client[$1]}\033[0m" 
+elif [ "$2" == "-m" ]; then
+    google-chrome-stable ${client[$1]}"/mnu.jsp" 
+elif [ "$2" == "-a" ]; then
+      
 else
     google-chrome-stable ${client[$1]}
 fi

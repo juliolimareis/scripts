@@ -46,7 +46,7 @@
 # cyanClaro="1;36"
 # branco="1;37"
 
-pathIcon="$PWD/icons"
+pathIcon="$HOME/healthmap/script/msg/icons"
 
 function msg_ui(){
     notify-send "$1" --icon="$pathIcon/$2.png"

@@ -6,11 +6,11 @@
 #################################### 
 
 # Depende: Script msg
-source "msg/msg"
+source "$HOME/healthmap/script/msg/msg"
 
 ########### CONFIGURAÇÃO #############
 #endereço do icone de alerta
-pathIcon="$PWD/icons"
+# pathIcon="$HOME/healthmap/icons"
 #aquivo de configuração vpn
 pathConfig="$HOME/healthmap/vpn/vpn.conf"
 #caminho da autenticação da vpn
