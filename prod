@@ -107,11 +107,14 @@ declare -A client=(
     ['unimedgoiania']='https://healthmap.unimedgoiania.coop.br'
     ['unimedvitoria']='http://unimedvitoria.healthmap.com.br'
     ['clinicadoc']="https://clinicadoc.healthmap.com.br"
-    ['cnuais']="https://cnuais.healthmap.com.br/clogin"
+    ['cnuais']="https://cnuais.healthmap.com.br"
     ['mentalmap']='https://mentalmap.healthmap.com.br'
     ['unimedse']='https://unimedse.healthmap.com.br'
-    ['cnu']="https://cnu.healthmap.com.br/clogin"
+    ['cnu']="https://cnu.healthmap.com.br"
     ['ujf']='https://ujf.healthmap.com.br'
+    ['careplus']='https://careplus.healthmap.com.br'
+    ['unimedcuiaba']='https://healthmap.unimedcuiaba.coop.br'
+    ['dor']='http://viva.dorconsultoria.com.br'
 ) 
 
 if [ -z $1 ]; then
@@ -130,8 +133,6 @@ if [ "$2" == "-l" ]; then
     echo -e "\033[1;36m${client[$1]}\033[0m" 
 elif [ "$2" == "-m" ]; then
     google-chrome-stable ${client[$1]}"/mnu.jsp" 
-elif [ "$2" == "-a" ]; then
-      
 else
     google-chrome-stable ${client[$1]}
 fi
