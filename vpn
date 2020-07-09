@@ -24,7 +24,7 @@ function startVPN(){
     echo -e $userPasswd | sudo -S openvpn --config $pathConfig --verb 0 --auth-user-pass $pathAuth --auth-nocache --daemon
     # Verifica se não houve erros erros 
     if [ $? != 0 ]; then
-        msg_ui "Não foi possivel ligar VPN" "error"
+        msg_ui "Não foi possivel ligar VPN(comand error)" "error"
         exit 1
     fi
 }

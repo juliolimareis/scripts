@@ -115,6 +115,8 @@ declare -A client=(
     ['careplus']='https://careplus.healthmap.com.br'
     ['unimedcuiaba']='https://healthmap.unimedcuiaba.coop.br'
     ['dor']='http://viva.dorconsultoria.com.br'
+    ['unimedrv']='https://unimedrv.healthmap.com.br'
+    ['smartcare']='https://smartcare.healthmap.com.br'
 ) 
 
 if [ -z $1 ]; then
