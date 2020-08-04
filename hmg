@@ -17,13 +17,16 @@ declare -A client=(
     ['unimedse']='https://unimedse-homolog.healthmap.com.br'
     ['unimedgoiania']="https://unimedgoiania-homolog.healthmap.com.br"
     ['unimedvitoria']='https://unimedvitoria-homolog.healthmap.com.br'
-
 )
 
 if [ -z $1 ]; then
+    echo -e "\033[1;32m * Comando hmg * \033[0m"
     for i in "${!client[@]}"; do
-        echo -e "\033[1;37m$i \033[1;31m=> \033[1;36m${client[$i]}\033[0m"
+        echo -e "\033[1;35m$i \033[1;31m=> \033[1;36m${client[$i]}\033[0m"
     done
+    echo ""
+    echo "Para acessar o link: hmg <nome_base>"
+    echo "Para acessar mnu.jsp: hmg <nome_base> -m"
     exit
 fi
 
