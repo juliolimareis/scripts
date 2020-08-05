@@ -1,0 +1,34 @@
+#!/bin/bash
+# <juliolimareis@gmail.com>
+# Script conectar no servidor
+
+# Requisito: Comando "vpn"
+
+# Depende: Script msg
+source "msg/msg"
+# endereço do arquivo config da aws
+config="$HOME/healthmap/aws/config"
+
+# Verifica se a pasta existe
+ls "$HOME/.aws" 2>&1&> /dev/null
+#pasta não exixte tentar criar
+if [ $? != 0 ]; then
+  mkdir "$HOME/.aws" 2>&1&> /dev/null
+  # Verifica erros
+  if [ $? -gt 1 ]; then
+    msg_con_error "Não foi possivel criar a pasta."
+    exit
+  fi
+fi
+
+cat $config > "$HOME/.aws/config"
+# Verifica erros
+if [ $? != 0 ]; then
+  msg_con_error "Não foi possivel copiar o arquivo."
+  exit
+fi
+
+msg_con_success "Arquivo configurado com sucesso."
+
+exit
+
