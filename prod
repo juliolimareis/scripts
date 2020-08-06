@@ -125,20 +125,20 @@ if [ -z $1 ]; then
         echo -e "\033[1;37m$i \033[1;31m=> \033[1;36m${client[$i]}\033[0m"
     done
     echo ""
-    echo "Para acessar o link: hmg <nome_base>"
-    echo "Para acessar mnu.jsp: hmg <nome_base> -m"
+    echo "Acessar link: prod <nome_base>"
+    echo "Verificar se link esta cadastrado: prod <nome_base> -l"
+    echo "Acessar dados da base (mnu.jsp): prod <nome_base> -m"
     exit
 fi
 
 if [ -z ${client[$1]} ]; then
     echo -e "\033[1;31mError(option 404): Opção não encontrada. \033[0m"   
-    exit
 fi
 
 if [ "$2" == "-l" ]; then
     echo -e "\033[1;36m${client[$1]}\033[0m" 
 elif [ "$2" == "-m" ]; then
-    google-chrome-stable ${client[$1]}"/mnu.jsp" 
+    google-chrome-stable ${client[$1]}/ini_manipulation.jsp?acao=login
 else
     google-chrome-stable ${client[$1]}
 fi
