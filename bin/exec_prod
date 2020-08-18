@@ -117,7 +117,6 @@ declare -A client=(
     ['dor']='http://viva.dorconsultoria.com.br'
     ['unimedrv']='https://unimedrv.healthmap.com.br'
     ['smartcare']='https://smartcare.healthmap.com.br'
-    ['pasa']='https://pasa.healthmap.com.br'
 ) 
 
 if [ -z $1 ]; then
@@ -133,16 +132,18 @@ if [ -z $1 ]; then
 fi
 
 if [ -z ${client[$1]} ]; then
-    echo -e "\033[1;31mError(option $1 404): Cliente não encontrado. \033[0m" 
-    exit  
+    echo -e "\033[1;31mError(option 404): Opção não encontrada. \033[0m"   
+    exit
 fi
 
 if [ "$2" == "-l" ]; then
     echo -e "\033[1;36m${client[$1]}\033[0m" 
 elif [ "$2" == "-m" ]; then
     google-chrome-stable ${client[$1]}/ini_manipulation.jsp?acao=login
+    exit
 else
     google-chrome-stable ${client[$1]}
+    exit
 fi
 
 exit
