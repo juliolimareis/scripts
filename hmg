@@ -8,6 +8,8 @@
 #   -l (link): mostrar link da aplicação                #
 #########################################################
 
+browse="chromium"
+
 declare -A client=(
     # ['app01']='https://app01-homolog.healthmap.com.br'
     #['app02']='https://app02-homolog.healthmap.com.br'
@@ -38,9 +40,9 @@ fi
 if [ "$2" == "-l" ]; then
     echo -e "\033[1;36m${client[$1]}\033[0m"
 elif [ "$2" == "-m" ]; then
-    google-chrome-stable ${client[$1]}/ini_manipulation.jsp?acao=login
+    $browse ${client[$1]}/ini_manipulation.jsp?acao=login
 else
-    google-chrome-stable ${client[$1]}
+    $browse ${client[$1]}
 fi
 
 exit

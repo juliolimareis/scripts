@@ -102,6 +102,8 @@
 
 # 47• AON: https://aon.healthmap.com.br
 
+browse="chromium"
+
 declare -A client=(
     ['unimedjoinville']='https://unimedjoinville.healthmap.com.br'
     ['unimedgoiania']='https://healthmap.unimedgoiania.coop.br'
@@ -140,9 +142,9 @@ fi
 if [ "$2" == "-l" ]; then
     echo -e "\033[1;36m${client[$1]}\033[0m" 
 elif [ "$2" == "-m" ]; then
-    google-chrome-stable ${client[$1]}/ini_manipulation.jsp?acao=login
+    $browse ${client[$1]}/ini_manipulation.jsp?acao=login
 else
-    google-chrome-stable ${client[$1]}
+    $browse ${client[$1]}
 fi
 
 exit
