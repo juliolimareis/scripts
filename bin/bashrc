@@ -1,0 +1,10 @@
+
+
+#add user
+export PATH="$PATH:/home/julio/healthmap/script"
+
+alias hm="cd $HOME/healthmap/healthmap_web"
+alias hmr="cd $HOME/healthmap/healthmap_report"
+alias hmv3="cd $HOME/healthmap/healthmap_api_v3"
+alias hmm="cd $HOME/healthmap/healthmap\ mobile\ v3"
+alias hmls="echo 'hm(gestão) hmr(report) hmv3(api v3) hmm(mobile)'"

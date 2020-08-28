@@ -1,0 +1,18 @@
+#!/bin/bash
+#########################################################
+# @author: <juliolimareis@gmail.com>                    #
+# @description: executar scrips de bkp                  # 
+#########################################################
+
+# case in "$1" in
+#     "bd"|"-b") #DBeaver
+#         exec 'bkps/dbeaver -b'
+#     ;;
+#     *)
+#         clear
+#         echo -e "\033[1;31m==== Script Backup ====\033[0m"
+#         msg_con_color_0 "\"dbeaver -b\" => Fazer backup de arquivos do DBeaver" 32
+#         msg_con_color_0 "\"dbeaver -b\" => Restaurar arquivos do DBeaver" 35
+#     ;;
+# esac
+

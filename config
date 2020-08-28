@@ -1,0 +1,23 @@
+#!/bin/bash
+#########################################################
+# @author: <juliolimareis@gmail.com>                    #
+# @description: Configura a máquina                     # 
+#########################################################
+
+# Depende: Script msg
+source "$HOME/healthmap/script/msg/msg"
+
+#Comando 001
+cat bin/bashrc >> $HOME/.bashrc
+if [ $? != 0 ]; then
+    msg_con_error "Não foi possivel restaurar bashrc" "error Comando 001"
+    exit 1
+fi
+source $HOME/.bashrc
+
+#Comando 002
+dbeaver -r
+if [ $? != 0 ]; then
+    msg_con_error "Não foi possivel restaurar BDeaver" "error Comando 001"
+    exit 1
+fi

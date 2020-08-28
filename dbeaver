@@ -1,0 +1,74 @@
+#!/bin/bash
+#########################################################
+# @author: <juliolimareis@gmail.com>                    #
+# @description: Script fazer bkp das configurações do   # 
+# dberaver                                              #
+#########################################################
+
+# Depende: Script msg
+source "$HOME/healthmap/script/msg/msg"
+#Variáveis
+path_snap="$HOME/snap/dbeaver-ce"
+path_bkp="$HOME/healthmap/bkp/DBeaver"
+userPasswd=$(cat $HOME/.pfkdgj494fdfdg)
+path_shortcut="/var/lib/snapd/desktop/applications/dbeaver-ce_dbeaver-ce.desktop"
+
+function getShortcut(){ #Atualiza o atalho do DBeaver
+    echo -e "[Desktop Entry]
+    X-SnapInstanceName=dbeaver-ce
+    Version=1.0
+    Type=Application
+    Terminal=false
+    Name=DBeaver Community
+    GenericName=UniversaL Database Manager
+    Comment=Universal Database Manager and SQL Client.
+    Exec=$HOME/healthmap/script/dbeaver -eb
+    Icon=/snap/dbeaver-ce/78/usr/share/dbeaver/dbeaver.png
+    Categories=IDE;Development
+    StartupWMClass=DBeaver
+    StartupNotify=true
+    Keywords=Database;SQL;IDE;JDBC;ODBC;MySQL;PostgreSQL;Oracle;DB2;MariaDB
+    MimeType=application/sql" > "$path_bkp/dbeaver-ce_dbeaver-ce.desktop"
+}
+
+case "$1" in
+    "-b") #backup
+        cp -rf $path_snap "$path_bkp/dbeaver-ce"
+        if [ $? != 0 ]; then
+            msg_ui "Não foi possivel fazer backup (script dbeaver)" "error"
+            exit 1
+        fi
+        msg_ui "Backup DBeaver" "correct"
+    ;;
+    "-r") #recovery
+        cp -r $path_bkp $path_snap
+        if [ $? != 0 ]; then
+            msg_ui "Não foi possivel fazer backup (script dbeaver)" "error"
+            exit 1
+        fi
+        #restaurando o atalho
+        getShortcut
+        sudo cp "$path_bkp/dbeaver-ce_dbeaver-ce.desktop" $path_shortcut
+        if [ $? != 0 ]; then
+            msg_ui "Não foi possivel restaurar o atalho (script dbeaver)" "error"
+            exit 1
+        fi
+        msg_ui "DBeaver restaurado com sucesso" "correct"
+    ;;
+    "-e") #execute DBeaver
+        exec env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/dbeaver-ce_dbeaver-ce.desktop /snap/bin/dbeaver-ce
+    ;;
+    "-eb") #execute DBeaver com backup
+        exec $(exec /snap/bin/dbeaver-ce)
+        exec $HOME/healthmap/script/dbeaver -b 
+    ;;
+    *)
+        clear
+        echo -e "\033[0;33m==== Script Backup DBeaver ====\033[0m"
+        msg_con_color_0 "\"dbeaver -b\" => Fazer backup de arquivos do DBeaver" 32
+        msg_con_color_0 "\"dbeaver -r\" => Restaurar arquivos do DBeaver" 35
+        echo "path_snap => $HOME/snap/dbeaver-ce"
+        echo "path_bkp => $HOME/healthmap/dbeaver-ce"
+    ;;
+esac
+
