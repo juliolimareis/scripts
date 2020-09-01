@@ -1,0 +1,31 @@
+#!/bin/bash
+#########################################################
+# @author: <juliolimareis@gmail.com>                    #
+# @description: Script fazer inicializar as ferramentas #
+# caso seja dia de trabalho                             # 
+#########################################################
+
+#DATA=$(date +%w)
+
+# case $DATA in
+
+# 0) echo "Domingo";;
+# 1) echo "Segunda";;
+# 2) echo "Terca";;
+# 3) echo "Quarta";;
+# 4) echo "Quinta";;
+# 5) echo "Sexta";;
+# 6) echo "Sabado";;
+# 7) echo "Domingo";;
+
+DATA=$(date +%w)
+HOUR=$(date +%H)
+
+if [ $DATA -gt 0 -a $DATA -lt 6 -a $HOUR -gt 8 -a $HOUR -lt 18 ]; then
+    echo "Horário de trabalho"
+    slack
+    skype
+    eclipse
+    chromium
+    spotify
+fi
