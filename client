@@ -5,6 +5,10 @@
 # @depedency: sudo apt install xsel
 #########################################################
 
+# para fazer clipboard.
+# instalar xsel
+# cat $dirClients/$1 | xsel -ib 
+
 dirClients="$HOME/healthmap/documentos/.clients"
 dirProperties="$HOME/healthmap/healthmap_web/healthmap/WEB-INF/healthmap.properties"
 
@@ -80,20 +84,6 @@ esac
 
 exit
 
-# verifica se prametro $1 esta vazio
-if [ -z $1 ]; then
-    echo -e "\033[1;32m * Clientes cadastrados * \033[0m"
-    echo -e "\033[1;37m`ls $dirClients`\033[0m"
-    echo ""
-    echo "Pegar dados do cliente: client <nome_cliente>"
-    exit
-fi
-
-#fazendo clipboard.
-# cat $dirClients/$1 | xsel -ib 
-# cat $dirClients/$1
-
-exit
 
 
 
