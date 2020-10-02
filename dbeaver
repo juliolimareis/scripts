@@ -4,6 +4,11 @@
 # @description: Script fazer bkp das configurações do   # 
 # dberaver                                              #
 #########################################################
+# para recuperar dados: dbeaver -r
+# para para backup: dbeaver -b
+# Executar dberaver: dbeaver -e
+# Executar dberaver com backup pós fechar: dbeaver -eb
+# Documentação: Executar comando sem parâmetros
 
 # Depende: Script msg
 source "$HOME/healthmap/script/msg/msg"

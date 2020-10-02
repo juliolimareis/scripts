@@ -3,7 +3,9 @@
 # @author: <juliolimareis@gmail.com>                    #
 # @description: Configura a máquina                     # 
 #########################################################
-
+#
+# Exemplo: config
+#
 # Depende: Script msg
 source "$HOME/healthmap/script/msg/msg"
 
