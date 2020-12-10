@@ -120,6 +120,11 @@ declare -A client=(
     ['unimedrv']='https://unimedrv.healthmap.com.br'
     ['smartcare']='https://smartcare.healthmap.com.br'
     ['pasa']='https://pasa.healthmap.com.br'
+    ['unimedpoa']='https://unimedpoa.healthmap.com.br'
+    ['adm']='https://admhealthmap.healthmap.com.br'
+    ['institutopaulucci']='https://institutopaulucci.healthmap.com.br'
+    ['lockton']='https://lockton.healthmap.com.br'
+    ['poa']='https://unimedpa.healthmap.com.br'
 ) 
 
 if [ -z $1 ]; then

@@ -1,0 +1,7 @@
+#!/bin/bash
+#########################################################
+# @author: <juliolimareis@gmail.com>                    #
+# @description: Lista de programas para instalar        # 
+#########################################################
+
+sudo apt install xfce4-screenshooter

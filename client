@@ -77,6 +77,9 @@ case "$1" in
     	echo "Pegar dados do cliente: comando <nome_cliente>"
 			echo "Adicionar ou atualizar cliente: comando add ou -a"
     ;;
+   "-l"|"show")
+			echo -e $(cat $dirClients/$2)
+   ;;
     *)
 			refreshProperties $1
     ;;

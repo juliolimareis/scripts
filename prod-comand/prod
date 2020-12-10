@@ -1,0 +1,11 @@
+#!/bin/bash
+#########################################################
+# @author: <juliolimareis@gmail.com>                    #
+# @description: Script Abrir healthmap em produção      #
+# @Exemples: prod unimedvitoria                         #
+# Parametros: prod unimedvitoria -m                     #
+#   -m (mnu.jsp): Abrir página do .properties           #
+#   -l (link): mostrar link da aplicação                #
+#########################################################
+
+prod dor
