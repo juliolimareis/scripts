@@ -1,0 +1,80 @@
+#!/bin/bash
+#########################################################
+# @author: <juliolimareis@gmail.com>                    #
+# @description: Script para criar componente vue TS     #
+# @depedency:  
+#########################################################
+
+isDir="$PWD/src"
+
+function help(){
+	echo -e "\033[1;32m * Gerar componente para Vue TS * \033[0m"
+	echo -e "\033[1;37m !* Este script parte do src do projeto \033[0m"
+	echo -e "\033[1;37m Você esta em => $PWD \033[0m"
+	echo "Exemplo de uso"
+	echo "> $ create home view/home"
+	exit
+}
+
+function gerateHMTL(){
+	echo -e "<template>
+	<div> 
+		<h1>$1 is ready!</h1>
+	</div>
+</template>
+	
+<script lang=\"ts\" src=\"./$1.ts\"></script>
+
+<style scoped>
+	@import \"$1.css\";
+</style>" > "$isDir/$2/$1/$1.vue"
+	echo -e "\033[1;37mgerado => $1.vue\033[0m"
+}
+
+function gerateTS(){
+	echo -e "import { Component, Prop, Vue } from 'vue-property-decorator'
+
+@Component
+export default class $1 extends Vue { }" > "$isDir/$2/$1/$1.ts"
+	echo -e "\033[1;37mgerado => $1.ts\033[0m"
+}
+
+function gerateCSS(){
+	echo "" > "$isDir/$2/$1/$1.css"
+	echo -e "\033[1;37mgerado => $1.css\033[0m"
+}
+
+function gerate(){
+	mkdir $isDir/$2/$1 2>&1&> /dev/null
+	gerateHMTL $1 $2
+  gerateTS $1 $2
+  gerateCSS $1 $2
+	echo -e "\033[1;32mComponente gerado => $isDir/$2/$1\033[0m"
+	exit
+}
+
+# function gerateTS(){
+
+# }
+
+case "$1" in
+  "g"|"gerate")
+		if [ -n $2 ]; then # verifica parâmetro 2 "nome" do componente
+      if [ -n $3 ]; then # verifica  parâmetro 3 => "diretório(view ou componet)" onde vai ser criado
+				gerate $2 $3
+    	fi
+    fi
+		help
+  ;;  
+  ""|"-h"|"help"|"-help"|"--help")
+		help
+  ;;  
+  *)
+		help
+  ;;
+esac
+
+
+
+
+

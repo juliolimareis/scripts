@@ -1,0 +1,28 @@
+#!/bin/sh
+
+### Criado por Hugo Branquinho de Carvalho
+### data 9 de junho de 2005
+
+### Verifica se a internet está no ar, se nao estiver executa o comando "adsl-start"
+# https://fiosaude.healthmap.com.br
+# if ! ping -c 7 www.fiosaude.healthmap.com.br ; then
+
+# https://careplus.healthmap.com.br
+if ! ping -c 7 fiosaude.healthmap.com.br ; then
+
+# if ! ping -c 7 www.uol.com.br ; then
+
+echo
+echo "Internet está PARADA !!!"
+adsl-start
+echo
+
+else
+
+echo
+echo "Internet ok !!!"
+echo
+
+fi
+
+exit
