@@ -6,6 +6,7 @@
 #########################################################
 
 isDir="$PWD/src"
+fileName=""
 
 function help(){
 	echo -e "\033[1;32m * Gerar componente para Vue TS * \033[0m"
@@ -27,8 +28,8 @@ function gerateHMTL(){
 
 <style scoped>
 	@import \"$1.css\";
-</style>" > "$isDir/$2/$1/$1.vue"
-	echo -e "\033[1;37mgerado => $1.vue\033[0m"
+</style>" > "$isDir/$2/$1/$fileName.vue"
+	echo -e "\033[1;37mgerado => $fileName.vue\033[0m"
 }
 
 function gerateTS(){
@@ -45,6 +46,7 @@ function gerateCSS(){
 }
 
 function gerate(){
+	upperCaseFirstLetterFileName $1
 	mkdir $isDir/$2/$1 2>&1&> /dev/null
 	gerateHMTL $1 $2
   gerateTS $1 $2
@@ -53,15 +55,17 @@ function gerate(){
 	exit
 }
 
-# function gerateTS(){
-
-# }
+function upperCaseFirstLetterFileName(){
+	echo $1 > vuets.txt
+	fileName=$(awk 'BEGIN{RS="[.!?]+[ \t\n]*"}; {sub(".", substr(toupper($0), 1,1), $0); printf ("%s%s", $0, RT)}' vuets.txt)
+	rm vuets.txt
+}
 
 case "$1" in
   "g"|"gerate")
 		if [ -n $2 ]; then # verifica parâmetro 2 "nome" do componente
       if [ -n $3 ]; then # verifica  parâmetro 3 => "diretório(view ou componet)" onde vai ser criado
-				gerate $2 $3
+				gerate $2 $3				
     	fi
     fi
 		help
