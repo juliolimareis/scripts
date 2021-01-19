@@ -2,7 +2,7 @@
 #########################################################
 # @author: <juliolimareis@gmail.com>                    #
 # @description: Script para criar componente vue TS     #
-# @depedency:  
+# @depedency: none
 #########################################################
 
 isDir="$PWD/src"
@@ -12,8 +12,9 @@ function help(){
 	echo -e "\033[1;32m * Gerar componente para Vue TS * \033[0m"
 	echo -e "\033[1;37m !* Este script parte do src do projeto \033[0m"
 	echo -e "\033[1;37m Você esta em => $PWD \033[0m"
-	echo "Exemplo de uso"
-	echo "> $ create home view/home"
+	echo "$ vuets g [nome_componente] [diretório]"
+	echo "Exemplo de uso: "
+	echo "> $ vuets g home view/home"
 	exit
 }
 

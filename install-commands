@@ -1,0 +1,26 @@
+#!/bin/bash
+############################################################
+# @author: <juliolimareis@gmail.com>                       #
+# @description: configura os scripts para comandos globais # 
+############################################################
+
+echo -e "\033[1;33m * Instalação dos comandos script * \033[0m"
+case "$1" in
+  "-i"|"install")
+    echo -e '\n#scripts' >> ~/.bashrc
+    echo -e "export PATH=\"\$PATH:$(pwd)\"" >> ~/.bashrc
+		source ~/.bashrc
+		echo -e "\033[1;32m Fim da instalação \033[0m"
+  ;;
+  ""|"-h"|"help")
+		echo ""
+    echo "> $ install-commands [option]"
+    echo "i, install --instalar os comando de forma global"
+		echo ""
+    echo "Exemplo de uso: Na pasta scripts executar"
+		echo -e "\033[1;37m ./install-commands -i\033[0m"
+		echo -e 'By juliolimareis@gmail.com'  
+  ;;
+esac
+
+exit
