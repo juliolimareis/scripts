@@ -4,22 +4,36 @@
 # @description: configura os scripts para comandos globais # 
 ############################################################
 
-echo -e "\033[1;33m * Instalação dos comandos script * \033[0m"
+function config(){
+	echo -e "\n#$1" >> ~/.bashrc
+  echo -e "export PATH=\"\$PATH:$2\"" >> ~/.bashrc
+}
+
+echo -e "\033[1;33m * Instalação de comandos globais * \033[0m"
 case "$1" in
   "-i"|"install")
-    echo -e '\n#scripts' >> ~/.bashrc
-    echo -e "export PATH=\"\$PATH:$(pwd)\"" >> ~/.bashrc
+		config "scripts" "$(pwd)"
 		source ~/.bashrc
 		echo -e "\033[1;32m Fim da instalação \033[0m"
   ;;
+	"-c"|"config")
+		config "script $2" $3
+	;;
   ""|"-h"|"help")
 		echo ""
-    echo "> $ install-commands [option]"
-    echo "i, install --instalar os comando de forma global"
+    echo "-i, install --configurar todos os comandos desta pasta"
+    echo "-c, config [nome] [dir] --configurar um comando manualmente"
+		echo " [nome]: nome do arquivo"
+		echo " [dir]: diretório do arquivo"
 		echo ""
-    echo "Exemplo de uso: Na pasta scripts executar"
+    echo "Exemplo de uso -i: Na pasta scripts executar"
 		echo -e "\033[1;37m ./install-commands -i\033[0m"
-		echo -e 'By juliolimareis@gmail.com'  
+		echo ""
+    echo "Exemplos de uso -c: Na pasta scripts executar"
+		echo -e "\033[1;37m ./install-commands -c teste /home/julio/scripts\033[0m"
+		echo -e "\033[1;37m ./install-commands -c teste \`pwd\`\033[0m"
+		echo ""
+		echo -e '\033[1;36mBy juliolimareis@gmail.com'  
   ;;
 esac
 
