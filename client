@@ -68,7 +68,7 @@ function listClients(){
 
 function listClient(){
   if [ -n $1 ]; then
-    cat "$dirClients/$1"
+    echo -e $(cat "$dirClients/$1")
   else
     listClients
   fi

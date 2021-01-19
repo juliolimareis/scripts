@@ -19,6 +19,7 @@ declare -A client=(
     ['unimedse']='https://unimedse-homolog.healthmap.com.br'
     ['unimedgoiania']="https://unimedgoiania-homolog.healthmap.com.br"
     ['unimedvitoria']='https://unimedvitoria-homolog.healthmap.com.br'
+    ['poa']='https://unimedpa.hmg.healthmap.com.br'
 )
 
 if [ -z $1 ]; then
