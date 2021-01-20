@@ -9,12 +9,23 @@ isDir="$PWD/src"
 fileName=""
 
 function help(){
-	echo -e "\033[1;32m * Gerar componente para Vue TS * \033[0m"
-	echo -e "\033[1;37m !* Este script parte do src do projeto \033[0m"
+	echo -e "\033[1;33m ===== Gerarador de arquivos Vue TS ===== \033[0m"
+	echo -e "\033[42;1;37m !* Você deve estar na pasta raiz do projeto\033[0m"
 	echo -e "\033[1;37m Você esta em => $PWD \033[0m"
-	echo "$ vuets g [nome_componente] [diretório]"
-	echo "Exemplo de uso: "
-	echo "> $ vuets g home view/home"
+	echo "" # component
+	echo -e "\033[1;37m Criar component ( c | -c | component ): \033[0m"
+	echo -e "\033[1;38m vuets c [name] [diretório] \033[0m"
+	echo ""
+	echo -e "\033[1;37m Exemplo de uso component: \033[0m"
+	echo -e "\033[1;32m $ vuets c home view/home \033[0m"
+	echo "" # modulo
+	echo -e "\033[1;37m Criar Vuex modulo ( m | -m | module ): \033[0m"
+	echo -e "\033[1;38m vuets m [name] \033[0m"
+	echo ""
+	echo -e "\033[1;37m Exemplo de uso criar module: \033[0m"
+	echo -e "\033[1;32m $ vuets m coffee \033[0m"
+	echo ""
+	echo -e "\033[1;37mBy <juliolimareis@gmail.com>\033[0m"
 	exit
 }
 
@@ -46,8 +57,8 @@ function gerateCSS(){
 	echo -e "\033[1;37mgerado => $1.css\033[0m"
 }
 
-function gerate(){
-	upperCaseFirstLetterFileName $1
+function gerateComponent(){
+	fileName="$(upperCaseFirst $1)"
 	mkdir $isDir/$2/$1 2>&1&> /dev/null
 	gerateHMTL $1 $2
   gerateTS $1 $2
@@ -56,20 +67,158 @@ function gerate(){
 	exit
 }
 
-function upperCaseFirstLetterFileName(){
+function upperCaseFirst(){
 	echo $1 > vuets.txt
-	fileName=$(awk 'BEGIN{RS="[.!?]+[ \t\n]*"}; {sub(".", substr(toupper($0), 1,1), $0); printf ("%s%s", $0, RT)}' vuets.txt)
+	name=$(awk 'BEGIN{RS="[.!?]+[ \t\n]*"}; {sub(".", substr(toupper($0), 1,1), $0); printf ("%s%s", $0, RT)}' vuets.txt)
 	rm vuets.txt
+	echo $name
 }
 
+
+################### Gerador de modulos #################
+
+function interfaceObject(){
+	interface="export interface $objectName {"
+	
+	for x in "${arrayAttr[@]}"
+	do
+		interface="$interface\n 
+		 $x"
+	done
+
+	interface="$interface\n}\n"
+}
+
+function interfaceState(){
+	interface="$interface\nexport interface $objectName""State {\n"
+	
+	interface="$interface 
+	$moduleaName: $objectName\n
+		loader: boolean\n"
+
+	interface="$interface\n}"
+}
+
+function gerateInterface(){
+	interface=""
+	interfaceObject
+	interfaceState
+	echo -e $interface > "$dir/$moduleaName.ts"
+	echo "GERATE => $dir/$moduleaName.ts"
+}
+
+function gerateState(){
+	echo -e "export default {
+	$moduleaName: {},
+	loader: false,
+}
+	" > "$dir/state.ts"
+	echo "GERATE => $dir/state.ts"
+}
+
+function gerateGetters(){
+	stateParam="state: $objectName""State"
+	echo -e "import { $objectName, $objectName""State } from './$moduleaName'
+	
+export default {
+	$moduleaName($stateParam): $objectName {
+		return state.$moduleaName
+	},
+	loader($stateParam): boolean {
+		return state.loader
+	}
+}
+	" > "$dir/getters.ts"
+	echo "GERATE => $dir/getters.ts"
+}
+
+function gerateMutations(){
+	mutationParam="state: $objectName""State"
+	echo -e "import { $objectName, $objectName""State } from './$moduleaName'
+	
+export default {
+	set$objectName($mutationParam, $moduleaName: $objectName): void {
+		state.$moduleaName = $moduleaName
+	},
+	changeLoader($mutationParam): void {
+		state.loader = !state.loader
+	},
+}
+	" > "$dir/mutations.ts"
+	echo "GERATE => $dir/mutations.ts"
+}
+
+function gerateActions(){
+	actionsParam="store: ActionContext<$objectName""State, string>"
+	echo -e "import { ActionContext } from 'vuex'
+import { $objectName""State } from './$moduleaName'
+import { api, /*setToken, clearToken*/ } from '@/services/api'
+	
+export default {
+	fetch$objectName($actionsParam): void {
+		api.get('/$moduleaName').then((response) => {
+			store.commit('changeLoader')
+			store.commit('set$objectName', response.data)
+			store.commit('changeLoader')
+		})
+	},
+
+}
+	" > "$dir/actions.ts"
+	echo "GERATE => $dir/actions.ts"
+}
+
+function generateIndex(){
+	echo -e "import state from './state';
+import getters from './getters';
+import actions from './actions';
+import mutations from './mutations';
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions,
+};" > "$dir/index.ts"
+echo "GERATE => $dir/index.ts"
+}
+
+
+
 case "$1" in
-  "g"|"gerate")
-		if [ -n $2 ]; then # verifica parâmetro 2 "nome" do componente
-      if [ -n $3 ]; then # verifica  parâmetro 3 => "diretório(view ou componet)" onde vai ser criado
-				gerate $2 $3				
+  "c"|"-c"|"component")
+		if [ "$2" != '' ]; then # verifica parâmetro 2 "nome" do componente
+      if [ "$3" != '' ]; then # verifica  parâmetro 3 => "diretório(view ou componet)" onde vai ser criado
+				gerateComponent $2 $3				
     	fi
     fi
 		help
+  ;;  
+  "m"|"-m"|"module")
+		if [ "$2" != '' ]; then # verifica parâmetro 2 "nome" do componente
+			echo "gerar"
+			exit
+			moduleaName="$2"
+			objectName="$(upperCaseFirst $2)"
+			#diretório de criação
+			getFileDir="$PWD/src/store/$2"
+			dir="$PWD/src/store/modules/$2"
+			#criar pasta
+			mkdir $dir 2>&1&> /dev/null
+			#transforma o texto em array
+			mapfile -t arrayAttr < $getFileDir
+			#gerar arquivos
+			gerateInterface
+			gerateState
+			gerateGetters
+			gerateMutations
+			gerateActions
+			generateIndex
+
+			echo -e "\033[1;33m * Atenção vc ainda tem que referênciar $moduleaName em @/store/index.ts* \033[0m"
+			echo -e "\033[1;32m * Modulo gerado * \033[0m"
+    fi
   ;;  
   ""|"-h"|"help"|"-help"|"--help")
 		help
@@ -78,6 +227,8 @@ case "$1" in
 		help
   ;;
 esac
+
+help
 
 
 
