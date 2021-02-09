@@ -24,7 +24,7 @@ HOUR=$(date +%H)
 if [ $DATA -gt 0 -a $DATA -lt 6 -a $HOUR -gt 8 -a $HOUR -lt 18 ]; then
     echo "Horário de trabalho"
     slack&
-    chromium&
+    #chromium&
     #eclipse&
     #skype&
 fi
