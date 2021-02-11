@@ -4,27 +4,39 @@
 # @description: configura os scripts para comandos globais # 
 ############################################################
 
+function configPasswd(){
+	echo "Senha administrador: "
+	read userPasswd
+	$userPasswd > $HOME/.pfkdgj494fdfdg
+}
+
 function config(){
-	echo -e "\n#$1" >> ~/.bashrc
+	echo -e "\n#$1" >> ~/.bashrc #comentário
   echo -e "export PATH=\"\$PATH:$2\"" >> ~/.bashrc
+	#variável global de scripts
+  echo -e "export SCRIPTS=\"$2\"" >> ~/.bashrc
 }
 
 echo -e "\033[1;33m * Instalação de comandos globais * \033[0m"
 case "$1" in
-  "-i"|"install")
+  "-i"|"install") #instala comandos globalmente
+		configPasswd
 		config "scripts" "$(pwd)"
 		source ~/.bashrc
 		echo -e "\033[1;32m Fim da instalação \033[0m"
   ;;
-	"-c"|"config")
+	"-c"|"config") #configura manualmente
 		config "script $2" $3
+	;;
+	"p"|"-p"|"configPasswd") #configura manualmente
+		configPasswd
 	;;
   ""|"-h"|"help")
 		echo ""
     echo "-i, install --configurar todos os comandos desta pasta"
-    echo "-c, config [nome] [dir] --configurar um comando manualmente"
+    echo "-c, config [nome] [dir] --configurar um(apenas específico) comando manualmente"
 		echo " [nome]: nome do arquivo"
-		echo " [dir]: diretório do arquivo"
+		echo " [dir]: diretório da pasta scripts"
 		echo ""
     echo "Exemplo de uso -i: Na pasta scripts executar"
 		echo -e "\033[1;37m ./install-commands -i\033[0m"

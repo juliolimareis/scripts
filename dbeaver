@@ -64,8 +64,8 @@ case "$1" in
         exec env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/dbeaver-ce_dbeaver-ce.desktop /snap/bin/dbeaver-ce
     ;;
     "-eb") #execute DBeaver com backup
-        exec $(exec /snap/bin/dbeaver-ce)
-        exec $HOME/healthmap/script/dbeaver -b 
+			exec $(exec /snap/bin/dbeaver-ce)
+			exec $HOME/healthmap/script/dbeaver -b 
     ;;
     *)
         clear

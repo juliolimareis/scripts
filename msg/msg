@@ -9,7 +9,7 @@
 # con: console
 # ui: interface
 
-# msg_ui "mensagem" "nameIcon"
+# msg_ui "mensagem" "nameIcon" => (Arquivos .png em ./icons)
 
 # msg_con_success "mensagem"
 # msg_con_alert "mensagem"
@@ -51,6 +51,48 @@ pathIcon="$HOME/healthmap/script/msg/icons"
 function msg_ui(){
     notify-send "$1" --icon="$pathIcon/$2.png"
 }
+############# combo messages console and notification ################
+function messagesSuccess(){
+	consoleSuccess "$1"
+	NotificationSuccess "$1"
+}
+
+function messagesWarning(){
+	consoleWarning "$1"
+	NotificationWarning "$1"
+}
+
+function messagesError(){
+	consoleError "$1" "$2"
+	NotificationError "$1: ($2)"
+}
+
+############# messages console ################
+function consoleSuccess(){
+    echo -e "\033[1;32m$1\033[0m"
+}
+
+function consoleWarning(){
+	echo -e "\033[1;33m$1\033[0m"
+}
+
+function consoleError(){
+    echo -e "\033[1;31mError($2): $1 \033[0m"
+}
+############# messages sistem notification ################
+function NotificationSuccess(){
+	msg_ui "$1" "correct"
+}
+
+function NotificationWarning(){
+	msg_ui "$1" "alert"
+}
+
+function NotificationError(){
+	msg_ui "$1" "error"
+}
+
+############## Old console messages #################
 
 function msg_con_success(){
     echo -e "\033[1;32m$1\033[0m"
